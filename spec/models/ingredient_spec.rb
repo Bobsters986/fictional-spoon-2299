@@ -18,6 +18,10 @@ RSpec.describe Ingredient, type: :model do
 
     it 'can sort ingredients alphabetically by name' do
       expect(Ingredient.sort_alphabetical).to eq([pepper, ground_beef, salt])
+      expect(Ingredient.sort_alphabetical).to_not eq([ground_beef, salt, pepper])
+
+      cheese = Ingredient.create!(name: "Cheddar", cost: 4)
+      expect(Ingredient.sort_alphabetical).to eq([pepper, cheese, ground_beef, salt])
     end
   end
 end

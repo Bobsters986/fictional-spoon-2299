@@ -16,13 +16,16 @@ RSpec.describe Recipe, type: :model do
     let!(:burger_patty) { Recipe.create!(name: 'Burger Patty', complexity: 2, genre: 'American') }
 
     before do
-      burger_patty.ingredients.create!(name: 'Ground Beef', cost: 8)
-      burger_patty.ingredients.create!(name: 'Salt', cost: 2)
+      beef = burger_patty.ingredients.create!(name: 'Ground Beef', cost: 8)
+      salt = burger_patty.ingredients.create!(name: 'Salt', cost: 2)
     end
 
     it 'can calculate a total cost of ingredients' do
       expect(burger_patty.total_cost).to eq(10)
       expect(burger_patty.total_cost).to_not eq(6)
+
+      cheese = burger_patty.ingredients.create!(name: "Cheddar", cost: 4)
+      expect(burger_patty.total_cost).to eq(14)
     end
   end
 end
